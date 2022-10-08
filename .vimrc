@@ -7,7 +7,6 @@ call plug#begin()
 
 	" Autosuggestion
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
   " TypeScript Highlighting
   Plug 'leafgarland/typescript-vim'
@@ -23,7 +22,7 @@ call plug#begin()
   Plug 'easymotion/vim-easymotion' " Quick move Plug 'terryma/vim-multiple-cursors'
   Plug 'valloric/matchtagalways' " Matching html tag
   Plug 'alvan/vim-closetag'
-  Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'},
+  Plug 'yaegassy/coc-tailwindcss3', {'do': 'yarn install --frozen-lockfile'}
   Plug 'miyakogi/conoline.vim' " Highlight current line
 
   " File Search
@@ -222,5 +221,8 @@ autocmd BufWritePre *.go :OR
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+
 set ts=2 sw=2
 set number
+
