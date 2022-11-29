@@ -35,6 +35,7 @@ call plug#begin()
 	Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 	" Git
+  Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive' " As Git Blame
   Plug 'Xuyuanp/nerdtree-git-plugin' " Show git status in nerdtree
 
@@ -61,6 +62,8 @@ let g:tokyonight_transparent = 1
 let g:tokyonight_lualine_bold = 1
 let g:tokyonight_day_brightness = 1
 let g:tokyonight_hide_inactive_statusline = 1
+let g:tokyonight_transparent_background = 1
+let g:tokyonight_menu_selection_background = 'red'
 let g:tokyonight_colors = {
   \ 'hint': 'orange',
   \ 'error': '#ff0000',
@@ -90,32 +93,21 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
-" requires silversearcher-ag
-" used to ignore gitignore files
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
 " open new split panes to right and below
 set splitright
 set splitbelow
 
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path '**/node_modules/**' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
-
-" use alt+hjkl to move between split/vsplit panels
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
 " start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-
-" open terminal on ctrl+;
-" uses zsh instead of bash
+" open terminal on ctrl+n
 function! OpenTerminal()
   split term://bash
   resize 10
