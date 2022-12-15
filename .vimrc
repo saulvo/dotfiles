@@ -230,3 +230,10 @@ let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', '
 set ts=2 sw=2
 set number
 
+"-- FOLDING --
+set foldmethod=syntax "syntax highlighting items specify folds
+set foldcolumn=1 "defines 1 col at window left, to indicate folding
+let javaScript_fold=1 "activate folding by JS syntax
+set foldlevelstart=99 "start file with all folds opened
+
+nnoremap <C-f> :Ag<CR>
