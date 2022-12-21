@@ -14,7 +14,6 @@ call plug#begin()
 
 	" Support
   Plug 'andrewradev/tagalong.vim' " auto rename tag
-  Plug 'tpope/vim-commentary' " Quick comment
   Plug 'yggdroot/indentline' " Indent
   Plug 'chun-yang/auto-pairs' " Auto pair (can use coc-pairs)
   Plug 'editorconfig/editorconfig-vim' " Editorconfig
@@ -24,6 +23,9 @@ call plug#begin()
   Plug 'alvan/vim-closetag'
   Plug 'yaegassy/coc-tailwindcss3', {'do': 'yarn install --frozen-lockfile'}
   Plug 'miyakogi/conoline.vim' " Highlight current line
+
+  " Comment
+  Plug 'tpope/vim-commentary'
 
   " File Search
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -82,8 +84,10 @@ let g:NERDTreeDirArrowCollapsible = '-'
 
 " Automaticaly close vim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " File explorer plugin
 map <C-b> :NERDTreeToggle<CR>
+
 " nerd commenter
 noremap <C-/> :NERDCommenterComment<CR>
 
@@ -93,6 +97,7 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
+
 " open new split panes to right and below
 set splitright
 set splitbelow
@@ -229,11 +234,15 @@ let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', '
 
 set ts=2 sw=2
 set number
+set scrolloff=5
 
 "-- FOLDING --
 set foldmethod=syntax "syntax highlighting items specify folds
-set foldcolumn=1 "defines 1 col at window left, to indicate folding
+" set foldcolumn=1 "defines 1 col at window left, to indicate folding
 let javaScript_fold=1 "activate folding by JS syntax
 set foldlevelstart=99 "start file with all folds opened
 
 nnoremap <C-f> :Ag<CR>
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.jsx
+
