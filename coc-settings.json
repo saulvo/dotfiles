@@ -14,5 +14,8 @@
     "javascriptreact",
     "typescript.tsx"
   ],
-  "coc.preferences.diagnostic.virtualText": true
+  "coc.preferences.diagnostic.virtualText": true,
+  "suggest.autoTrigger": "always",
+  "suggest.echodocSupport":true
 }
+
